@@ -19,15 +19,34 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	//setup physics component
+	void FindPhysicsComponent();
+
+	//setup assumed input component
+	void FindInputComponent();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-
-	FVector CameraPosition;
-	FRotator CameraRotation;
-
+	
 	UPROPERTY(EditAnywhere)
 	float Reach = 100.0;
+
+	UPhysicsHandleComponent* PhysiscsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+
+	//raycast and grab what is in reach 
+	void Grab();
+	void Release();
+
+	//return hit for first physics body in reach 
+	const FHitResult GetFirstPhysicsBodyInReach();
+
+	//returns start od reach line
+	FVector GetReachLineStart();
+
+	//returns current end of reach libe
+	FVector GetReachLineEnd();
 };
